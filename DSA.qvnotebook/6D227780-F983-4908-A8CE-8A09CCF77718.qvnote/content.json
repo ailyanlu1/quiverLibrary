@@ -1,0 +1,27 @@
+{
+  "title": "Dynamic Programming",
+  "cells": [
+    {
+      "type": "markdown",
+      "data": "#### Max Square in Binary Matrix\n\n~~~~\n1 1 1\n0 1 1\n1 0 0\n\nAns: 2\n~~~~"
+    },
+    {
+      "type": "latex",
+      "language": "latex",
+      "data": "We will define the subproblem as:\n$$DP[i][j] = \\textit{max size square with one corner as (i,j)}$$\n\nThe recurrence relation is given by $DP[i][j] = $\n\n\\[   \\left\\{\n\\begin{array}{ll}\n      0 & grid[i][j] == 0 \\\\\n      1 + max(\\begin{array}{l}\n      DP[i-1][j],\\\\\n      DP[i][j-1],\\\\\n      DP[i-1][j-1]\\\\\n      \\end{array}) & otherwise \\\\\n\\end{array} \n\\right. \\]"
+    },
+    {
+      "type": "markdown",
+      "data": "#### Max rectangle in a histogram\n\nAlthough one can easily come up with a naive solution with O(n^2) time complexity. A linear solution using stacks also exists.\n\n~~~~\n1 2 6 4 6 3\n\nAns: 12\n~~~~\nAlgorithm:\n~~~~\nInsert a pair (-1, -INF) in the stack\n\nwhile (i < array size)\n  if value on top of stack less than current value\n    - push the current value\n  else \n    - keep popping stack until the value on top of stack is less than the current value\n    - calculate the area for each element popped using the current index as the right index and index of the prev element in the stack as the left index\n    - push the current value on stack\nend while\n\nwhile stack not empty\n  - pop value from stack and calculate the area using the current index as the right index and index of the prev element in the stack as the left index\nend while\n\nreturn the max area\n~~~~"
+    },
+    {
+      "type": "code",
+      "language": "c_cpp",
+      "data": "#define INF 1000000007\n\ntypedef pair<int,int> ii;\n\nint maxRectangle(vector<int> &arr){\n    int ans = 0;\n    stack<ii> st;\n    st.push(make_pair(-1, -INF));\n    for(int i = 0; i < arr.size(); ++i){\n        if(st.top().second < arr[i]){\n            st.push(make_pair(i, arr[i]));\n            continue;\n        }\n        while(st.top().second >= arr[i]){\n            int idx = i - 1;\n            int val = st.top().second;\n            st.pop();\n            int len = idx - st.top().first;\n            ans = max(ans, val * len);\n        }\n        st.push(make_pair(i, arr[i]));\n    }\n    while(!st.empty()){\n        int idx = arr.size() - 1;\n        int val = st.top().second;\n        st.pop();\n        if(val == -INF)\n            break;\n        int len = idx - st.top().first;\n        ans = max(ans, val * len);\n    }\n    return ans;\n}"
+    },
+    {
+      "type": "markdown",
+      "data": "#### Max Rectangle in Binary Matrix\n\nWe can use the solution of the previous problem to solve this problem.\nFor each row we calculate the height histogram of 1's and then run the `maxRectangle(vector<int> arr)` routine to calculate the max area in the current row.\nWe return the overall max area."
+    }
+  ]
+}

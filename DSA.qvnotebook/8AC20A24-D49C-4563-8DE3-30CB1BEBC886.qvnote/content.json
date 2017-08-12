@@ -1,0 +1,45 @@
+{
+  "title": "Bit manipulation",
+  "cells": [
+    {
+      "type": "markdown",
+      "data": "Original Article:\n* [A Bit of Fun: Fun with Bits (by bmerry)](https://www.topcoder.com/community/data-science/data-science-tutorials/a-bit-of-fun-fun-with-bits/)"
+    },
+    {
+      "type": "markdown",
+      "data": "#### Number representation\n\n##### 1's complement\n\nGiven an 8 bit binary number `00010110`, its 1's complement is given by just flipping all its bits i.e. `11101001`.\nThe sign of the number can be indentified using the MSB and in 1's complement `0` has two representations `+0` as `00000000` and `-0` as `11111111`.\nHere for N bit 1's complement representation we can represent numbers from `- (2^(N-1) - 1) to (2^(N-1) - 1)`.\n\n##### 2's complement\nGiven an 8 bit binary number `00010110`, its 2's complement is given by flipping its bits and adding 1 to it i.e. `11101010`.\nThe sign of the number can be identified using the MSB and here `0` has only one representation `00000000`.\nHere for N bit 1's complement representation we can represent numbers from `-2^(N-1) to (2^(N-1) - 1)`."
+    },
+    {
+      "type": "markdown",
+      "data": "#### Sets using bits\n\nA set over N elements can be represented by a N bit number, with 1 bit representing that the element is present and 0 representing it is absent.\n\n`ALL_BITS` denotes the first N bits set to 1 (for N elements).\n\n| Operation       | Method              |\n|:---------------:|:-------------------:|\n|Set Union        | A or B              |\n|Set Intersection | A & B               |\n|Set Subtraction  | A & ~B              |\n|Set Negation     | A ^ ALL_BITS        |\n|Set Bit          | A or (1 << bit)     |\n|Clear Bit        | A & (1 << bit)      |\n|Test Bit         | A & (1 << bit) != 0 |"
+    },
+    {
+      "type": "markdown",
+      "data": "#### Check if only one bit is set\n\nGiven x, we can check if only 1 bit set by checking if `x & (x - 1) == 0`.\n`x = 0001000` then, `0001000 & 0000111 = 0`.\n`x = 1101000` then, `1101000 & 1100111 = 1100000`."
+    },
+    {
+      "type": "markdown",
+      "data": "#### Find the maximum/minimum 1 bit in a set\n\nWe can just iterate from the highest/lowest bit and keep checking if a bit is set to 1. This seems to be a slow approach, but on average it is very fast. If each of the `2^N` sets are equally likely then the loop will only take 2 iterations on average.\n\nWe can also use the builtin CPU instructions to do this `__builtin_ctz()` and `__builtin_clz()` to do this. **Just make sure for argument 0 the function output is undefined.**"
+    },
+    {
+      "type": "markdown",
+      "data": "#### Counting the number of 1 bits in a set\n\nGCC has a builtin function `__builtin_popcount()` that does just this. This does not however translate to a hardware instruction like in the previous case but, even though it is still pretty efficient."
+    },
+    {
+      "type": "markdown",
+      "data": "#### Traversing all subsets\n\nTraversing through all possible sets of N elements is trivial. One only needs to increment from `0 -> 2^N - 1` to generate all possible subsets. Also all sets come before their super sets making this extremely good for some DP solutions.\n\nTraversing through all possible subsets of a given superset can be done in the reverse order. The iteration step would be `i -> (i - 1) & superset`, where `i = superset` in the beginning.\n\n`11010 -> 11000 -> 10010 -> 10000 -> 01010 -> 01000 -> 00010 -> 00000`."
+    },
+    {
+      "type": "markdown",
+      "data": "#### Some common pitfalls\n\n* When evaluating `a << b` or `b >> a` only the last 5 (6 in case of 64 bit integer) are used. Shifting right or left by 32 will do nothing.\n* The operators `&` and `|` have lower precedence than boolean comparison operators hence `2 & 3 == 1` actually evaluates as `2 & (3 == 1)`,\n* Also make sure to use **unsigned** integers if you want to utilise the topmost bit. On some compilers shift operations on negative values is not defined. Also in C++ the right shift operator inserts the MSB, for negative values it might have unforeseen consequences."
+    },
+    {
+      "type": "markdown",
+      "data": "#### Reversing the bits in an integer\n\n~~~~\nx = ((x & 0xaaaaaaaa) >> 1) | ((x & 0x55555555) << 1);\nx = ((x & 0xcccccccc) >> 2) | ((x & 0x33333333) << 2);\nx = ((x & 0xf0f0f0f0) >> 4) | ((x & 0x0f0f0f0f) << 4);\nx = ((x & 0xff00ff00) >> 8) | ((x & 0x00ff00ff) << 8);\nx = ((x & 0xffff0000) >> 16) | ((x & 0x0000ffff) << 16);\n~~~~"
+    },
+    {
+      "type": "markdown",
+      "data": "#### Min XOR between a pair of numbers in an array\n\nFind a pair of numbers in a given array such that the XOR between them is minimum.\n\n**Key Idea:** We need to prioritise eliminating the higher bits first because the sum of all lower bits is not equal to the higher bits.\n\nLet's imagine a binary tree such where each N bit number is a unique leaf in the binary tree. We start at the root and for each significant bit we got the left (if it is 0) or right (if it is 1). Also at each node in the tree we maintain the count of all numbers below it. The minimum XOR value will be between a pair of numbers at the deepest level (because then the maximum higher bits would be same and hence, would cancel each other).\n\n![IMG_20170704_013353.jpg](quiver-image-url/2EE018602E1F7E3D793C3C89AD4AEC94.jpg)\n\nA quick observation shows that the leafs of this tree are in a sorted order. And the minimum value of XOR will always be between two successive indices in a sorted array.\n\n**Solution:** Sort the array and just take XOR of consecutive element and return the minimum value."
+    }
+  ]
+}

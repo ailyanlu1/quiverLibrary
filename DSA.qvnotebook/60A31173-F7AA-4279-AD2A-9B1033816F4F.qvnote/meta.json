@@ -1,0 +1,13 @@
+{
+  "created_at" : 1497948876,
+  "tags" : [
+    "binary trees",
+    "BST",
+    "Morris",
+    "threading",
+    "tree traversal"
+  ],
+  "title" : "Inorder tree traversal without recursion or stack (Morris Traversal)",
+  "updated_at" : 1497957973,
+  "uuid" : "60A31173-F7AA-4279-AD2A-9B1033816F4F"
+}

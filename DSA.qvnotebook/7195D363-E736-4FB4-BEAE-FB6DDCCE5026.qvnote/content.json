@@ -1,0 +1,70 @@
+{
+  "title": "Sorting (runtime, memory and stability considerations)",
+  "cells": [
+    {
+      "type": "markdown",
+      "data": "Original Article:\n* [Sorting (by timmac)](https://www.topcoder.com/community/data-science/data-science-tutorials/sorting/)"
+    },
+    {
+      "type": "markdown",
+      "data": "#### General Considerations\nThe top considerations for sorting are:-\n* Runtime\n* Memory\n* Stability\n\nFaster algorithms that require multiple recursive calls may need to make a copy of the data again and again, this may make the entire operation extremely memory intensive in cases where memory is at a premium (embedded systems).\n\nStability in sorting means that whether the algorithm preserves the relative order of elements that are comparitively the same. A stable sort algorithm is the one where the relative order is unchanged."
+    },
+    {
+      "type": "markdown",
+      "data": "##### Bubble Sort\n\n* O(n^2)\n* In place sort (no additional memory)\n* Stable sort"
+    },
+    {
+      "type": "code",
+      "language": "c_cpp",
+      "data": "void bubble_sort(vector<int> &arr){\n  int n = arr.size();\n  for(int i = 0; i < n; ++i){\n    for(int j = 0; j < n - i - 1; ++j){\n      if(arr[j] > arr[j + 1])\n        swap(arr[j], arr[j + 1]);\n    }\n  }\n}"
+    },
+    {
+      "type": "markdown",
+      "data": "##### Insertion Sort\n\n* works well on lists that are mostly sorted\n* worst case O(n^2)\n* in place sort\n* stable sort\n* easy to maintain a DS that gets added to frequently (if one wanted to maintain a sorted list and elements kept on adding to it)"
+    },
+    {
+      "type": "code",
+      "language": "c_cpp",
+      "data": "void insert_sort(vector<int> &arr){\n  int n = arr.size();\n  for(int i = 0; i < n; ++i){\n    int k = i - 1;\n    int temp = arr[i];\n    while(k > 0){\n      if(arr[k] <= temp)\n        break;\n      arr[k] = temp;\n      k--;\n    }\n    arr[k + 1] = temp;\n  }\n}"
+    },
+    {
+      "type": "markdown",
+      "data": "##### Merge Sort\n\n* O(nlogn)\n* needs extra storage for the merge step\n* stable sort\n* application in counting the number of inversions (determining how \"unsorted\" a given list is)"
+    },
+    {
+      "type": "code",
+      "language": "c_cpp",
+      "data": "void merge_sort(vector<int> &arr){\n  if(arr.size() == 0 || arr.size() == 1)\n    return;\n  int sz = arr.size() / 2;\n  vector<int> A(arr.begin(), arr.begin() + sz);\n  vector<int> B(arr.begin() + sz, arr.end());\n  merge_sort(A);\n  merge_sort(B);\n  int i = 0, j = 0, k = 0;\n  while(i < A.size() && j < B.size()){\n    if(A[i] <= B[j]){\n      arr[k] = A[i];\n      i++;\n      k++;\n    }\n    else{\n      arr[k] = B[j];\n      j++;\n      k++;\n    }\n  }\n  while(i < A.size()){\n    arr[k] = A[i];\n    i++;\n    k++;\n  }\n  while(j < B.size()){\n    arr[k] = B[j];\n    j++;\n    k++;\n  }\n}"
+    },
+    {
+      "type": "markdown",
+      "data": "##### Heap Sort\n\n* O(nlogn) with low constants\n* in place sort\n* **not** a stable sort\n* somewhat difficult to implement\n* to sort in the ascending (descending) order first construct the max (min) heap and then repeatedly remove the top element from the heap. the heapify process has an amortized cost of O(n) and each deletion takes O(logn) time hence it takes O(nlogn) to delete all elements. since the deleted elements are replaced at the end of the heap you finally get a completely sorted list"
+    },
+    {
+      "type": "markdown",
+      "data": "##### Quick Sort\n\n* best case O(nlogn), worst case O(n^2), average case randomized quick sort O(nlogn).\n* in place sort\n* **not** a stable sort\n* partition step needs to be applied"
+    },
+    {
+      "type": "code",
+      "language": "c_cpp",
+      "data": "int partition(int l, int r, vector<int> &arr){\n  int p = l;\n  for(int i = l + 1; i <= r; ++i){\n    if(arr[i] >= arr[p])\n      continue;\n    swap(arr[i], arr[p]);\n    swap(arr[i], arr[p + 1]);\n    p++;\n  }\n  return p;\n}\n\nvoid quick_helper(int l, int r, vector<int> &arr){\n  if(l >= r)\n    return;\n  int p = partition(l, r, arr);\n  quick_helper(l, p - 1, arr);\n  quick_helper(p + 1, l, arr);\n}\n\nvoid quick_sort(vector<int> &arr){\n  quick_helper(0, arr.size() - 1, arr);\n}"
+    },
+    {
+      "type": "markdown",
+      "data": "##### Radix Sort\n\n* looks into the structure of the keys itself\n* O(bn) where b is the number of bits in a key\n\n##### Radix Exchange Sort\n\n* start left to right from the MSB, in each step partition the array based on the bit under examination, then recurse on the sub arrays\n* O(bn)\n* in place sort\n* **not** a stable sort (due to the partition step)\n\nTo partition in on a given bit:\n\nrepeat\n  - scan left to right to find key with 1 (at bit b)\n  - scan right to left to find key with 0 (at bit b)\n  - exchange indices\nuntil indices cross"
+    },
+    {
+      "type": "code",
+      "language": "c_cpp",
+      "data": "int partition(int b, vector<int> &arr){\n  int scan = 1 << (b - 1);\n  int i = 0, j = arr.size() - 1;\n  while(i < j){\n    if(arr[i] & scan == 0){\n      i++;\n      continue;\n    }\n    if(arr[j] & scan == 1){\n      j--;\n      continue;\n    }\n    swap(arr[i], arr[j]);\n    i++;\n    j--;\n  }\n  return arr[i] & scan ? i : i + 1;\n}"
+    },
+    {
+      "type": "markdown",
+      "data": "##### Straight Radix Sort\n\n* start right to left from the LSB, in each step sort the array in a **stable** way based on the bit under examination, then keep on sorting with the next significant bit\n* O(bn)\n* out of place sort (need to use bucket sort for stable sorting)\n* a stable sort"
+    },
+    {
+      "type": "markdown",
+      "data": "##### Lower Bound on comparison based sorting\n\nAssume all possible arrays of n elements. Total possible such arrays is n!. Now make a tree of all the comparison decisions that need to be taken to sort the array. The leaves of the tree denote each possible permuation. Since the number of leaves is n!, the smallest height of the tree can be O(log(n!)) which is roughly equal to O(nlogn). This gives us the lower bound on comparison based sorting. Radix sort is not counted here because it is not a comparison based sort. It analyses the structure of the keys."
+    }
+  ]
+}

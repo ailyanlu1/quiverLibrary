@@ -1,0 +1,14 @@
+{
+  "title": "Probability",
+  "cells": [
+    {
+      "type": "markdown",
+      "data": "#### Independence\n\nGiven A and B are independent events:"
+    },
+    {
+      "type": "latex",
+      "language": "latex",
+      "data": "$$P(A|B) = \\frac{P(A \\cap B)}{P(B)} = P(A)$$\n$$P(A \\cap B) = P(A) * P(B)$$\n\nIf A and B are independent to each other then\n- $A$ and $\\overline{B}$ are independent\n- $\\overline{A}$ and $\\overline{B}$ are also independent\n\nLet’s now consider a series of n independent events: $E_1, E_2, … , E_n$.\n\nProbability that all events will occur:\n\n$$P(E_1) * P(E_2) * ... * P(E_n)$$\n\nProbability that atleast one event will occur:\n\n$$1 - P(\\overline{E_1}) * P(\\overline{E_2}) * ... * P(\\overline{E_n})$$\n\nNOTE:- Can be derived using the inclusion exclusion principle. Calculate $P(E_1 \\cup E_2 \\cup ... \\cup E_n).$"
+    }
+  ]
+}

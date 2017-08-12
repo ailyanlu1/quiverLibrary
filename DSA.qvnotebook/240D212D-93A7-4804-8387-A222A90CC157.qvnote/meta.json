@@ -1,0 +1,12 @@
+{
+  "created_at" : 1498228034,
+  "tags" : [
+    "disjoint",
+    "path compression",
+    "set",
+    "union by rank"
+  ],
+  "title" : "Disjoint-Set data structures",
+  "updated_at" : 1498229597,
+  "uuid" : "240D212D-93A7-4804-8387-A222A90CC157"
+}

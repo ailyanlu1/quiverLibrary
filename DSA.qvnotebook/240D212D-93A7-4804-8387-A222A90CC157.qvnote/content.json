@@ -1,0 +1,33 @@
+{
+  "title": "Disjoint-Set data structures",
+  "cells": [
+    {
+      "type": "markdown",
+      "data": "Original Article:\n* [Disjoint-set Data Structures (by vlad_D)](https://www.topcoder.com/community/data-science/data-science-tutorials/disjoint-set-data-structures/)"
+    },
+    {
+      "type": "markdown",
+      "data": "If you need to store disjoint sets dynamically the disjoint-set data structure or the union-find data structure is extremely well suited to this task."
+    },
+    {
+      "type": "markdown",
+      "data": "#### Some operations\n* CREATE-SET(x) – creates a new set with one element {x}.\n* MERGE-SETS(x, y) – merge into one set the set that contains element x and the set that contains element y (x and y are in different sets). The original sets will be destroyed.\n* FIND-SET(x) – returns the representative or a pointer to the representative of the set that contains element x."
+    },
+    {
+      "type": "markdown",
+      "data": "#### Implementation with linked lists\n\nMaintain multiple linked lists, each representing one disjoint set. For the merge operation, merge one linked list to the other. We need to maintain a representative of each element in a step, here in merge the representatives of all elements in one set need to be changed.\nTime Complexity O(M^2) where M is the number of operations MERGE-SETS(x, y). With this implementation the complexity will average O(N) per operation where N represents the number of elements in all sets.\n\n##### Weighted-union heuristic\n\nIn the merge step append the list having less number of elements to the list having more number of elements. In case of equality decide arbitrarily.\nThis will bring the complexity of the algorithm to O(M + NlogN)"
+    },
+    {
+      "type": "markdown",
+      "data": "#### Implementation with rooted trees\n\nStep 1. Initialisation\n\n![disjoint3.jpg](quiver-image-url/34D277FCC40AEE70892BFB1614A90B92.jpg)\n\nStep 2. 1 and 2 are friends, MERGE-SETS(1, 2):\n\n![disjoint4.jpg](quiver-image-url/CD5D2AE035F40F5BFE92EC071E2E8E3A.jpg)\n\nStep 3. 5 and 4 are friends, MERGE-SETS(5, 4)\n\n![disjoint5a.jpg](quiver-image-url/D67F54EA42581FF592858784881EB316.jpg)\n\nStep 4. 5 and 1 are friends, MERGE-SETS(5, 1)\n\n![disjoint5b.jpg](quiver-image-url/E9C10F4441F760E5AC8BD8EDEC042872.jpg)\n\n##### Union by rank\n\nWe maintain a quantity called rank that \"sort of\" represents the height of the tree. Whenever the merge is called we point the root of the tree having lower rank to the root of the tree having higher rank. If the rank of both are equal then the value of rank is incremented by 1. Initially the rank is set to 0.\n\n##### Path Compression\n\nThe idea of path compression is that during the FIND-SET(x) operation we connect all nodes lying in the path of the given node x, directly to the root of the tree. This flattens the tree."
+    },
+    {
+      "type": "markdown",
+      "data": "~~~\nCREATE-SET(x){\n  P[x] = x;\n  rank[x] = 0;\n}\n\nFIND-SET(x){\n  if P[x] = x:\n    return x;\n  P[x] = FIND-SET(P[x]);\n  return P[x];\n}\n\nMERGE-SET(x, y){\n  PX = FIND-SET(x);\n  PY = FIND-SET(y);\n  if(PX == PY)\n    return;\n  if(rank[PX] > rank[PY])\n    P[PY] = PX;\n  else if(rank[PY] > rank[PX])\n    P[PX] = PY;\n  else{\n    P[PY] = PX;\n    rank[PX] = rank[PX] + 1;\n  }\n}\n~~~"
+    },
+    {
+      "type": "markdown",
+      "data": "The worst running time is O( m α(m,n)), where α(m,n) is the very slowly growing inverse of Ackermann’s function. In application α(m,n) <= 4 that’s why we can say that the running time is linear in terms of m, in practical situations."
+    }
+  ]
+}

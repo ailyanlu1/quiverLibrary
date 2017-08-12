@@ -1,0 +1,25 @@
+{
+  "title": "Topcoder good questions",
+  "cells": [
+    {
+      "type": "markdown",
+      "data": "#### Basics of Combinatorics\n\n* [HARD] [DiceGames](http://community.topcoder.com/stat?c=problem_statement&pm=7601&rd=10673) - SRM 349 Division One – Level Two"
+    },
+    {
+      "type": "markdown",
+      "data": "#### Introduction to Graphs and Their Data Structures\n\n* [MEDIUM] TCCC 03 Semifinals Room 4 – [Circuits](http://community.topcoder.com/tc?module=ProblemDetail&rd=4494&pm=1593) – Div 1 275\n* [CONCEPT] Inviational 02 Semifinal Room 2 – Div 1 500 – [Escape](http://community.topcoder.com/tc?module=ProblemDetail&rd=4371&pm=1170)\n* [HARD] Division 1 in SRM 156 - [Pathfinding](https://community.topcoder.com/stat?c=problem_statement&pm=1110)\n* [MEDIUM] SRM 150 – Div 1 1000 – [RoboCourier](http://community.topcoder.com/tc?module=ProblemDetail&rd=4555&pm=1749)"
+    },
+    {
+      "type": "markdown",
+      "data": "#### Dynamic Programming – From Novice to Advanced\n\n* [MEDIUM - HARD] [FlowerGarden](http://community.topcoder.com/tc?module=ProblemDetail&rd=5006&pm=1918) – 2004 TCCC Round 1\n* [HARD - UNSOLVED] [StripePainter](http://community.topcoder.com/tc?module=ProblemDetail&rd=4555&pm=1215) – SRM 150 Div 1\n* [UNSOLVED] [StarAdventure](http://community.topcoder.com/tc?module=ProblemDetail&rd=5854&pm=2940) – SRM 208 Div 1\n* [UNSOLVED] [MiniPaint](http://community.topcoder.com/tc?module=ProblemDetail&rd=4710&pm=1996) – SRM 178 Div 1"
+    },
+    {
+      "type": "markdown",
+      "data": "#### A Bit of Fun: Fun with Bits\n\n* [UNSOLVED] - TCCC 2006, Round 1B Medium\n* [UNSOLVED] - TCO 2006, Round 1 Easy\n* [UNSOLVED] - SRM 308, Division 1 Medium\n* [UNSOLVED] - SRM 320, Division 1 Hard"
+    },
+    {
+      "type": "markdown",
+      "data": "#### Understanding Probability\n\n* [MEDIUM - HARD] [Collision](https://community.topcoder.com/stat?c=problem_statement&pm=1771&rd=4570) (SRM 153, Div 1 – Medium)\n* [UNSOLVED] [BenfordsLaw](http://community.topcoder.com/stat?c=problem_statement&pm=1348&rd=4580) – SRM 155\n* [UNSOLVED] [ChipRace](http://community.topcoder.com/stat?c=problem_statement&pm=2436&rd=5074) – SRM 199\n* [UNSOLVED] [TopFive](http://community.topcoder.com/stat?c=problem_statement&pm=4453&rd=7218) – SRM 243\n* [UNSOLVED] [ProbabilityTree](http://community.topcoder.com/stat?c=problem_statement&pm=2234&rd=4675) – SRM 174\n* [UNSOLVED] [OneArmedBandit](http://community.topcoder.com/stat?c=problem_statement&pm=3443&rd=6515) – SRM 226\n* [UNSOLVED] [RangeGame](http://community.topcoder.com/stat?c=problem_statement&pm=2233&rd=4675) – SRM 174\n* [UNSOLVED] [YahtzeeRoll](http://community.topcoder.com/stat?c=problem_statement&pm=3439&rd=5868) – SRM 222\n* [UNSOLVED] [BagOfDevouring](http://community.topcoder.com/stat?c=problem_statement&pm=2299&rd=4740) – SRM 184\n* [UNSOLVED] [RandomFA](http://community.topcoder.com/stat?c=problem_statement&pm=2287&rd=4710) – SRM 178\n* [UNSOLVED] [PackageShipping](http://community.topcoder.com/stat?c=problem_statement&pm=3481&rd=6530) – TCCC05 Round 3\n* [UNSOLVED] [QueenInterference](http://community.topcoder.com/stat?c=problem_statement&pm=2935&rd=5854) – SRM 208\n* [UNSOLVED] [BaseballLineup](http://community.topcoder.com/stat?c=problem_statement&pm=1972&rd=4711) – TCO ’03 Finals\n* [UNSOLVED] [AntiMatter](http://community.topcoder.com/stat?c=problem_statement&pm=1358&rd=4715) – SRM 179\n* [UNSOLVED] [TestScores](http://community.topcoder.com/stat?c=problem_statement&pm=3486&rd=6515) – SRM 226\n* [UNSOLVED] [Hangman42](http://community.topcoder.com/stat?c=problem_statement&pm=3068&rd=6518) – SRM 229\n* [UNSOLVED] [KingOfTheCourt](http://community.topcoder.com/stat?c=problem_statement&pm=3440&rd=5868) – SRM 222\n* [UNSOLVED] [WinningProbability](http://community.topcoder.com/stat?c=problem_statement&pm=3069&rd=5864) – SRM 218\n* [UNSOLVED] [Disaster](http://community.topcoder.com/stat?c=problem_statement&pm=3563&rd=6550) – TCCC05 Semi 1"
+    }
+  ]
+}

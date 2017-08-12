@@ -1,0 +1,90 @@
+{
+  "title": "Standard Template Library (STL)",
+  "cells": [
+    {
+      "type": "markdown",
+      "data": "Original Articles:\n* [Power up C++ with the Standard Template Library: Part 1](https://www.topcoder.com/community/data-science/data-science-tutorials/power-up-c-with-the-standard-template-library-part-1/)\n* [Power up C++ with the Standard Template Library: Part 2](https://www.topcoder.com/community/data-science/data-science-tutorials/power-up-c-with-the-standard-template-library-part-2/)"
+    },
+    {
+      "type": "markdown",
+      "data": "Container types (algorithms and all STL) are not declared in the global namespace, they are defined in a special namespace called `std`. Hence add the following line:"
+    },
+    {
+      "type": "code",
+      "language": "c_cpp",
+      "data": "using namespace std;"
+    },
+    {
+      "type": "markdown",
+      "data": "The type of the container is defined by its template parameter specified as follows:"
+    },
+    {
+      "type": "code",
+      "language": "c_cpp",
+      "data": "vector<int> N;"
+    },
+    {
+      "type": "markdown",
+      "data": "When declaring nested containers make sure the brackets are not consecutive or the compiler may confuse it with the `>>` operator."
+    },
+    {
+      "type": "code",
+      "language": "c_cpp",
+      "data": "vector<vector<int>> N;  // incorrect\nvector<vector<int> > N; // correct"
+    },
+    {
+      "type": "markdown",
+      "data": "#### Vectors\n\nVector is just an array with extended capabilities. BTW vector is the only container that is backwards compatible with C."
+    },
+    {
+      "type": "code",
+      "language": "c_cpp",
+      "data": "vector<int> v;      // an empty vector is created (with no elements)\n/* be careful with declarations like these */\nvector<int> v[10];  // this creates an array of 10 empty vectors\nvector<int> v(10);  // this creates a vector with 10 integers all initialized to 0"
+    },
+    {
+      "type": "markdown",
+      "data": "Checking the size of the vectors is one of the most frequent operations. But, make sure if you are just checking if the size of the vector is 0 you utilize the `empty` function. Because, not all containers can report their size if O(1) time and it is unecessary to count each element if you only need to check if it is empty or not."
+    },
+    {
+      "type": "code",
+      "language": "c_cpp",
+      "data": "int num_of_elems = v.size();      // returns the size in unsigned int (sometimes may give problems)\nbool is_empty = v.size() != 0;    // Not recommended\nbool is empty = !v.empty();       // Better implementation"
+    },
+    {
+      "type": "markdown",
+      "data": "Another popular function is the `push_back` function in vectors. It appends a single value to the back of the vector. Don't worry about memory allocation, it never just allocates memory for 1 element. It allocates more memory than it actually needs. Sometimes slower, better idea to initialise the vector beforehand if you know the size. Also need to worry about the memory usage."
+    },
+    {
+      "type": "code",
+      "language": "c_cpp",
+      "data": "vector<int> v;\nfor (int i = 0; i < 100000; ++i){\n  v.push_back(i*i);\n}\nint num_elements = v.size();"
+    },
+    {
+      "type": "markdown",
+      "data": "When you need to resize the vector use the `resize` function. If the new size is greater than the old size, old elements are preserved and new elements are initialized to 0. Otherwise, the last ones will be deleted."
+    },
+    {
+      "type": "code",
+      "language": "c_cpp",
+      "data": "vector<int> v(20);\nfor (int i = 0; i < 20; ++i){\n  v[i] = i*i;\n}\nv.resize(25);\nfor (int i = 20; i < 25; ++i){\n  v[i] = 2*i + 1;\n}\n/* Note that if you push_back after size the new elements will be appended after not filled in place of */"
+    },
+    {
+      "type": "markdown",
+      "data": "To delete all elements use the `clear` function. To insert elements at any position use `insert`, to delete use `erase`.\nThere are many ways to initialise a vector."
+    },
+    {
+      "type": "code",
+      "language": "c_cpp",
+      "data": "vector<int> v1;\n// initialize using another vector\nvector<int> v2 = v1;\nvector<int> v3(v1);\n// create vector of a specific size\nvector<int> v(1000);\n// create vector of a specific size and filled with an initial value other than 0.\nvector<string> arr(10, \"Unkown\");\n// Multidimensional vectors\nvector<vector<int> > Matrix;\n// create a 2D vector of any size say MxN filled with -1, it uses a recursive approach that can be extended to higher dimensions\nvector<vector<int> > grid(M, vector<int>(N, -1));"
+    },
+    {
+      "type": "markdown",
+      "data": "When vectors are passed to a function they are copied as whole (this is required very rarely). It is better to pass a reference to the vector."
+    },
+    {
+      "type": "code",
+      "language": "c_cpp",
+      "data": "void operate_vector(vector<int> v){   // shouldn't unless really sure\n  // ...\n  // ...\n}\n\nvoid operate_vector(const vector<int> &v){  // vector passed as reference\n  // ...\n  // ...\n}\n\nvoid modify_vector(vector<int> &v){   // remove the const\n  // ...\n  // ...\n}"
+    }
+  ]
+}
